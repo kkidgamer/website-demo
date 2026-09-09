@@ -5,12 +5,12 @@ function Navbar() {
   const path = location.pathname;
 
   // Determine the current package
-  let packageType = "basic";
+  let packageType = "standard";
 
   if (path.startsWith("/premium")) {
     packageType = "premium";
-  } else if (path.startsWith("/standard")) {
-    packageType = "standard";
+  } else if (path.startsWith("/basic")) {
+    packageType = "basic";
   }
 
   const navItems = {
