@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { buildContactMailto, CONTACT_EMAIL } from '../utils/contact'
 
 function PremiumContact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -9,31 +10,28 @@ function PremiumContact() {
   const handleSubmit = e => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
-    const subject = data.get('subject') || 'General Inquiry'
-    const body = [
-      `Name: ${data.get('firstName') || ''} ${data.get('lastName') || ''}`.trim(),
-      `Email: ${data.get('email') || ''}`,
-      `Phone: ${data.get('phone') || ''}`,
-      '',
-      data.get('message') || ''
-    ].join('\n')
-
-    window.location.href = `mailto:office@greenfield.academy?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = buildContactMailto({
+      name: `${data.get('firstName') || ''} ${data.get('lastName') || ''}`.trim(),
+      email: data.get('email') || '',
+      phone: data.get('phone') || '',
+      subject: data.get('subject') || '',
+      message: data.get('message') || '',
+    })
   }
 
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <span style={styles.badge}>⭐ Premium</span>
         <h1 style={styles.pageTitle}>Contact Us</h1>
-        <p style={styles.pageSubtitle}>We'd love to hear from you</p>
+        <p style={styles.pageSubtitle}>We&apos;d love to hear from you</p>
       </section>
 
       <div style={styles.contactGrid} className="schoolweb-contact-grid">
         <section style={styles.contactInfo}>
           <h2 style={styles.sectionTitle}>Get in Touch</h2>
 
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} className="schoolweb-surface">
             <div style={styles.infoIcon}>📍</div>
             <div>
               <h3 style={styles.infoLabel}>Our Location</h3>
@@ -45,7 +43,7 @@ function PremiumContact() {
             </div>
           </div>
 
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} className="schoolweb-surface">
             <div style={styles.infoIcon}>📞</div>
             <div>
               <h3 style={styles.infoLabel}>Phone</h3>
@@ -54,17 +52,17 @@ function PremiumContact() {
             </div>
           </div>
 
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} className="schoolweb-surface">
             <div style={styles.infoIcon}>✉️</div>
             <div>
               <h3 style={styles.infoLabel}>Email</h3>
-              <a href="mailto:office@greenfield.academy" style={styles.infoLink}>office@greenfield.academy</a>
+              <a href={`mailto:${CONTACT_EMAIL}`} style={styles.infoLink}>{CONTACT_EMAIL}</a>
               <br />
               <a href="mailto:admissions@greenfield.academy" style={styles.infoLink}>admissions@greenfield.academy</a>
             </div>
           </div>
 
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} className="schoolweb-surface">
             <div style={styles.infoIcon}>🕐</div>
             <div>
               <h3 style={styles.infoLabel}>Office Hours</h3>
@@ -90,20 +88,20 @@ function PremiumContact() {
           <form style={styles.form} onSubmit={handleSubmit}>
             <div style={styles.formRow} className="schoolweb-form-row">
               <div style={styles.formGroup}>
-                <label style={styles.label}>First Name</label>
-                <input type="text" name="firstName" placeholder="First name" style={styles.input} required />
+                <label htmlFor="firstName" style={styles.label}>First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="First name" style={styles.input} required />
               </div>
               <div style={styles.formGroup}>
-                <label style={styles.label}>Last Name</label>
-                <input type="text" name="lastName" placeholder="Last name" style={styles.input} required />
+                <label htmlFor="lastName" style={styles.label}>Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Last name" style={styles.input} required />
               </div>
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>Email Address</label>
+              <label htmlFor="email" style={styles.label}>Email Address</label>
               <input
                 type="email"
-                name="email"
+                id="email" name="email"
                 value={form.email}
                 onChange={handleChange}
                 placeholder="your@email.com"
@@ -113,27 +111,27 @@ function PremiumContact() {
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>Phone Number</label>
-              <input type="tel" name="phone" placeholder="+254 700 000 000" style={styles.input} />
+              <label htmlFor="phone" style={styles.label}>Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+254 700 000 000" style={styles.input} />
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>Subject</label>
-              <select name="subject" value={form.subject} onChange={handleChange} style={styles.select}>
+              <label htmlFor="subject" style={styles.label}>Subject</label>
+              <select id="subject" name="subject" value={form.subject} onChange={handleChange} style={styles.select}>
                 <option value="">Select a subject</option>
-                <option value="admissions">Admissions Inquiry</option>
-                <option value="academics">Academic Question</option>
-                <option value="fees">Fee & Payment Inquiry</option>
-                <option value="general">General Inquiry</option>
-                <option value="feedback">Feedback</option>
-                <option value="other">Other</option>
+                <option value="Admissions Inquiry">Admissions Inquiry</option>
+                <option value="Academic Question">Academic Question</option>
+                <option value="Fee & Payment Inquiry">Fee & Payment Inquiry</option>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Feedback">Feedback</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>Message</label>
+              <label htmlFor="message" style={styles.label}>Message</label>
               <textarea
-                name="message"
+                id="message" name="message"
                 value={form.message}
                 onChange={handleChange}
                 placeholder="How can we help you?"
@@ -143,10 +141,10 @@ function PremiumContact() {
               />
             </div>
 
-            <button type="submit" style={styles.submitBtn}>Send Message</button>
+            <button type="submit" style={styles.submitBtn}>Continue to Email App</button>
 
             <p style={styles.formNote}>
-              Your email app will open with the message ready to send.
+              We&apos;ll open a draft addressed to <a href={`mailto:${CONTACT_EMAIL}`} style={styles.infoLink}>{CONTACT_EMAIL}</a>. Review and send it in your email app; this site can&apos;t confirm delivery.
             </p>
           </form>
         </section>

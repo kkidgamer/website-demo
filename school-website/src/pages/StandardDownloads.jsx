@@ -1,14 +1,9 @@
 import { Link } from 'react-router-dom'
+import { CONTACT_EMAIL } from '../utils/contact'
 
-const downloadPath = name => {
-  const slug = name
-    .toLowerCase()
-    .replace(/\(pdf\)/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-
-  return `/downloads/${slug}.pdf`
-}
+const downloadPath = name => name === 'Academic Calendar 2026'
+  ? '/downloads/Academic%20Calendar%202026.pdf'
+  : null
 
 const resources = [
   {
@@ -51,8 +46,8 @@ const resources = [
 
 function StandardDownloads() {
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <h1 style={styles.pageTitle}>Downloads & Resources</h1>
         <p style={styles.pageSubtitle}>Useful forms, documents, and resources for students, parents, and staff</p>
       </section>
@@ -69,9 +64,13 @@ function StandardDownloads() {
                     <p style={styles.downloadName}>{item.name}</p>
                     <p style={styles.downloadSize}>{item.size}</p>
                   </div>
-                  <a href={downloadPath(item.name)} className="schoolweb-download-link" style={styles.downloadLink} download>
-                    Download
-                  </a>
+                  {downloadPath(item.name) ? (
+                    <a href={downloadPath(item.name)} className="schoolweb-download-link" style={styles.downloadLink} download>
+                      Download
+                    </a>
+                  ) : (
+                    <span className="schoolweb-download-link" style={{ ...styles.downloadLink, background: "#64748b" }} aria-label="This document is not available in the demo">Unavailable</span>
+                  )}
                 </div>
               ))}
             </div>
@@ -82,7 +81,7 @@ function StandardDownloads() {
       <div style={styles.note}>
         <p>
           For any questions about these resources, please contact the school office at{' '}
-          <a href="mailto:office@greenfield.academy" style={styles.noteLink}>office@greenfield.academy</a>
+          <a href={`mailto:${CONTACT_EMAIL}`} style={styles.noteLink}>{CONTACT_EMAIL}</a>
           {' '}or call <strong>+254 700 123 456</strong>.
         </p>
       </div>

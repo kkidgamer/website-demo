@@ -1,21 +1,22 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { unsplashPhotos } from '../data/unsplashPhotos'
 
 const categories = ['All', 'Events', 'Facilities', 'Students', 'Sports', 'Arts']
 
 const gallery = [
-  { category: 'Events', title: 'Graduation Ceremony', color: '#fbbf24' },
-  { category: 'Facilities', title: 'New Science Laboratory', color: '#2563eb' },
-  { category: 'Students', title: 'Classroom Activities', color: '#34d399' },
-  { category: 'Sports', title: 'Football Practice', color: '#ef4444' },
-  { category: 'Arts', title: 'Art Exhibition 2026', color: '#a855f7' },
-  { category: 'Events', title: 'Parents’ Day Celebration', color: '#fbbf24' },
-  { category: 'Facilities', title: 'School Library', color: '#2563eb' },
-  { category: 'Students', title: 'Computer Lab Session', color: '#34d399' },
-  { category: 'Sports', title: 'Basketball Match', color: '#ef4444' },
-  { category: 'Arts', title: 'Drama Club Performance', color: '#a855f7' },
-  { category: 'Events', title: 'STEM Fair', color: '#fbbf24' },
-  { category: 'Facilities', title: 'Playground', color: '#2563eb' }
+  { category: 'Events', title: 'Graduation Ceremony', image: "/illustrations/community-day.svg", photo: 'campus', color: '#fbbf24' },
+  { category: 'Facilities', title: 'New Science Laboratory', image: "/illustrations/science-lab.svg", photo: 'classroom', color: '#2563eb' },
+  { category: 'Students', title: 'Classroom Activities', image: "/illustrations/classroom.svg", photo: 'classroom', color: '#34d399' },
+  { category: 'Sports', title: 'Football Practice', image: "/illustrations/sports-field.svg", photo: 'field', color: '#ef4444' },
+  { category: 'Arts', title: 'Art Exhibition 2026', image: "/illustrations/arts-room.svg", photo: 'classroom', color: '#a855f7' },
+  { category: 'Events', title: 'Parents’ Day Celebration', image: "/illustrations/community-day.svg", photo: 'campus', color: '#fbbf24' },
+  { category: 'Facilities', title: 'School Library', image: "/illustrations/library.svg", photo: 'library', color: '#2563eb' },
+  { category: 'Students', title: 'Computer Lab Session', image: "/illustrations/classroom.svg", photo: 'classroom', color: '#34d399' },
+  { category: 'Sports', title: 'Basketball Match', image: "/illustrations/sports-field.svg", photo: 'basketball', color: '#ef4444' },
+  { category: 'Arts', title: 'Drama Club Performance', image: "/illustrations/arts-room.svg", photo: 'classroom', color: '#a855f7' },
+  { category: 'Events', title: 'STEM Fair', image: "/illustrations/science-lab.svg", photo: 'classroom', color: '#fbbf24' },
+  { category: 'Facilities', title: 'Playground', image: "/illustrations/sports-field.svg", photo: 'field', color: '#2563eb' }
 ]
 
 function StandardGallery() {
@@ -24,8 +25,8 @@ function StandardGallery() {
   const filtered = active === 'All' ? gallery : gallery.filter(item => item.category === active)
 
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <h1 style={styles.pageTitle}>Photo Gallery</h1>
         <p style={styles.pageSubtitle}>A glimpse into life at Greenfield International School</p>
       </section>
@@ -35,6 +36,9 @@ function StandardGallery() {
           {categories.map(cat => (
             <button
               key={cat}
+              type="button"
+              aria-pressed={active === cat}
+              className="schoolweb-filter-button"
               onClick={() => setActive(cat)}
               style={{
                 ...styles.filterBtn,
@@ -47,13 +51,14 @@ function StandardGallery() {
         </div>
       </section>
 
-      <section style={styles.grid}>
+      <section style={styles.grid} className="schoolweb-gallery-grid">
         {filtered.map(item => (
           <div key={item.title} style={styles.galleryCard}>
             <div style={{ ...styles.thumbnail, background: `linear-gradient(135deg, ${item.color}40, ${item.color}20)` }}>
-              <span style={{ ...styles.placeholderIcon, color: item.color }}>📷</span>
+              <img src={unsplashPhotos[item.photo].src} onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = item.image }} alt={item.title} loading="lazy" decoding="async" width="640" height="420" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <p style={styles.caption}>{item.title}</p>
+            <a className="schoolweb-photo-credit" href={unsplashPhotos[item.photo].page} target="_blank" rel="noreferrer">Photo by {unsplashPhotos[item.photo].photographer} on Unsplash</a>
             <span style={styles.categoryTag}>{item.category}</span>
           </div>
         ))}
@@ -84,7 +89,7 @@ const styles = {
   },
   filterBtnActive: {
     background: '#2563eb',
-    borderColor: '#2563eb',
+    border: '2px solid #2563eb',
     color: '#fff'
   },
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '2rem' },

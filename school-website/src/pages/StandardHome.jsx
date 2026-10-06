@@ -1,27 +1,29 @@
 import { Link } from 'react-router-dom'
+import { unsplashPhotos } from '../data/unsplashPhotos'
 
 function StandardHome() {
   return (
-    <div style={styles.container}>
-      <section style={styles.hero}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.hero} className="schoolweb-hero">
         <div style={styles.heroContent}>
           <h1 style={styles.heroTitle}>Welcome to Greenfield International School</h1>
           <p style={styles.heroSubtitle}>
             Empowering young minds for a brighter tomorrow since 1985
           </p>
           <div style={styles.heroButtons}>
-            <Link to="/standard/academics" style={styles.primaryBtn}>Explore Academics</Link>
-            <Link to="/standard/contact" style={styles.secondaryBtn}>Contact Us</Link>
+            <Link className="schoolweb-button" to="/standard/academics" style={styles.primaryBtn}>Explore Academics</Link>
+            <Link className="schoolweb-button" to="/standard/contact" style={styles.secondaryBtn}>Contact Us</Link>
           </div>
         </div>
         <div style={styles.heroImage}>
-          <div style={styles.heroPlaceholder}>
-            <span style={styles.heroIcon}>🏫</span>
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.55rem' }}>
+            <img src={unsplashPhotos.campus.src} onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = '/illustrations/campus.svg' }} alt="Students outside a school building" width="520" height="360" fetchPriority="high" style={{ width: '100%', maxWidth: '520px', height: 'auto', borderRadius: '16px' }} />
+            <a className="schoolweb-photo-credit" href={unsplashPhotos.campus.page} target="_blank" rel="noreferrer">Photo by {unsplashPhotos.campus.photographer} on Unsplash</a>
           </div>
         </div>
       </section>
 
-      <section style={styles.aboutPreview}>
+      <section style={styles.aboutPreview} className="schoolweb-feature-panel">
         <div style={styles.sectionContent}>
           <h2 style={styles.sectionTitle}>About Our School</h2>
           <p style={styles.paragraph}>
@@ -30,7 +32,7 @@ function StandardHome() {
             We offer a well-rounded curriculum, modern facilities, and a supportive
             community that prepares students for success in life.
           </p>
-          <Link to="/about" style={styles.learnMore}>Learn More About Us →</Link>
+          <Link to="/standard/about" style={styles.learnMore}>Learn More About Us →</Link>
         </div>
       </section>
 
@@ -68,12 +70,12 @@ function StandardHome() {
         </div>
       </section>
 
-      <section style={styles.cta}>
+      <section style={styles.cta} className="schoolweb-cta">
         <h2 style={styles.ctaTitle}>Ready to Join Greenfield?</h2>
         <p style={styles.ctaText}>
           Admissions are now open for the upcoming academic year. Schedule a campus tour today.
         </p>
-        <Link to="/standard/contact" style={styles.ctaButton}>Apply for Admission</Link>
+        <Link className="schoolweb-button" to="/standard/contact" style={styles.ctaButton}>Apply for Admission</Link>
       </section>
     </div>
   )

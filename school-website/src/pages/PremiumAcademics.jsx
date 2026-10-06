@@ -34,8 +34,8 @@ function PremiumAcademics() {
   ]
 
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <span style={styles.badge}>⭐ Premium</span>
         <h1 style={styles.pageTitle}>Academics</h1>
         <p style={styles.pageSubtitle}>A well-rounded education from Early Years to High School</p>

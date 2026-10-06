@@ -48,14 +48,14 @@ const stats = [
 
 function PremiumTestimonials() {
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <span style={styles.badge}>⭐ Premium</span>
         <h1 style={styles.pageTitle}>Testimonials</h1>
         <p style={styles.pageSubtitle}>Hear from our community of parents, students, and alumni</p>
       </section>
 
-      <section style={styles.statsRow}>
+      <section style={styles.statsRow} className="schoolweb-responsive-4">
         {stats.map(stat => (
           <div key={stat.label} style={styles.statCard}>
             <div style={styles.statNumber}>{stat.number}</div>
@@ -68,7 +68,7 @@ function PremiumTestimonials() {
         <div style={styles.testimonialGrid}>
           {testimonials.map(t => (
             <div key={t.name} style={styles.testimonialCard}>
-              <div style={styles.quoteIcon}>"</div>
+              <div style={styles.quoteIcon}>&quot;</div>
               <p style={styles.quote}>{t.quote}</p>
               <div style={styles.stars}>
                 {Array.from({ length: t.rating }).map((_, i) => (
@@ -89,12 +89,12 @@ function PremiumTestimonials() {
         </div>
       </section>
 
-      <section style={styles.cta}>
+      <section style={styles.cta} className="schoolweb-cta">
         <h2 style={styles.ctaTitle}>Ready to Experience Greenfield?</h2>
         <p style={styles.ctaText}>
           Schedule a campus tour and see firsthand what makes our community so special.
         </p>
-        <Link to="/premium/contact" style={styles.ctaButton}>Get in Touch</Link>
+        <Link className="schoolweb-button" to="/premium/contact" style={styles.ctaButton}>Get in Touch</Link>
       </section>
 
       <div style={styles.backNav}>

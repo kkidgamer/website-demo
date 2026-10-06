@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function NotFound() {
   return (
-    <main style={styles.container}>
+    <main style={styles.container} className="schoolweb-page">
       <p style={styles.code}>404</p>
       <h1>Page not found</h1>
       <p>The page you requested does not exist or may have moved.</p>

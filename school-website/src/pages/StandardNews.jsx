@@ -5,7 +5,7 @@ const posts = [
     date: 'September 5, 2026',
     category: 'Events',
     title: 'Annual Sports Day 2026 — Save the Date',
-    excerpt: 'Our annual Sports Day will be held on Saturday, 20 September at the main field. Families are warmly invited to cheer on our students.'
+    excerpt: 'Our annual Sports Day will be held on Saturday, 17 October at the main field. Families are warmly invited to cheer on our students.'
   },
   {
     date: 'August 28, 2026',
@@ -41,8 +41,8 @@ const posts = [
 
 function StandardNews() {
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <h1 style={styles.pageTitle}>News & Announcements</h1>
         <p style={styles.pageSubtitle}>Stay up to date with the latest from Greenfield International School</p>
       </section>
@@ -57,7 +57,7 @@ function StandardNews() {
               </div>
               <h2 style={styles.postTitle}>{post.title}</h2>
               <p style={styles.postExcerpt}>{post.excerpt}</p>
-              <Link to="#" style={styles.readMore}>Read More →</Link>
+              <span style={styles.readMore}>Preview only</span>
             </article>
           ))}
         </div>

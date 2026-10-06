@@ -1,27 +1,28 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { unsplashPhotos } from '../data/unsplashPhotos'
 
 const categories = ['All', 'Events', 'Facilities', 'Students', 'Sports', 'Arts', 'STEM', 'Community']
 
 const gallery = [
-  { category: 'Events', title: 'Graduation Ceremony', color: '#fbbf24' },
-  { category: 'Facilities', title: 'New Science Laboratory', color: '#7c3aed' },
-  { category: 'Students', title: 'Classroom Activities', color: '#34d399' },
-  { category: 'Sports', title: 'Football Practice', color: '#ef4444' },
-  { category: 'Arts', title: 'Art Exhibition 2026', color: '#a855f7' },
-  { category: 'Events', title: 'Parents\' Day Celebration', color: '#fbbf24' },
-  { category: 'Facilities', title: 'School Library', color: '#7c3aed' },
-  { category: 'Students', title: 'Computer Lab Session', color: '#34d399' },
-  { category: 'Sports', title: 'Basketball Match', color: '#ef4444' },
-  { category: 'Arts', title: 'Drama Club Performance', color: '#a855f7' },
-  { category: 'Events', title: 'STEM Fair', color: '#fbbf24' },
-  { category: 'Facilities', title: 'Playground', color: '#7c3aed' },
-  { category: 'STEM', title: 'Robotics Workshop', color: '#06b6d4' },
-  { category: 'STEM', title: '3D Printing Lab', color: '#06b6d4' },
-  { category: 'Community', title: 'Community Service Day', color: '#10b981' },
-  { category: 'Community', title: 'PTA Fundraiser', color: '#10b981' },
-  { category: 'Students', title: 'Science Project', color: '#34d399' },
-  { category: 'Sports', title: 'Athletics Day', color: '#ef4444' }
+  { category: 'Events', title: 'Graduation Ceremony', image: "/illustrations/community-day.svg", photo: 'campus', color: '#fbbf24' },
+  { category: 'Facilities', title: 'New Science Laboratory', image: "/illustrations/science-lab.svg", photo: 'classroom', color: '#7c3aed' },
+  { category: 'Students', title: 'Classroom Activities', image: "/illustrations/classroom.svg", photo: 'classroom', color: '#34d399' },
+  { category: 'Sports', title: 'Football Practice', image: "/illustrations/sports-field.svg", photo: 'field', color: '#ef4444' },
+  { category: 'Arts', title: 'Art Exhibition 2026', image: "/illustrations/arts-room.svg", photo: 'classroom', color: '#a855f7' },
+  { category: 'Events', title: 'Parents\' Day Celebration', image: "/illustrations/community-day.svg", photo: 'campus', color: '#fbbf24' },
+  { category: 'Facilities', title: 'School Library', image: "/illustrations/library.svg", photo: 'library', color: '#7c3aed' },
+  { category: 'Students', title: 'Computer Lab Session', image: "/illustrations/classroom.svg", photo: 'classroom', color: '#34d399' },
+  { category: 'Sports', title: 'Basketball Match', image: "/illustrations/sports-field.svg", photo: 'basketball', color: '#ef4444' },
+  { category: 'Arts', title: 'Drama Club Performance', image: "/illustrations/arts-room.svg", photo: 'classroom', color: '#a855f7' },
+  { category: 'Events', title: 'STEM Fair', image: "/illustrations/science-lab.svg", photo: 'classroom', color: '#fbbf24' },
+  { category: 'Facilities', title: 'Playground', image: "/illustrations/sports-field.svg", photo: 'field', color: '#7c3aed' },
+  { category: 'STEM', title: 'Robotics Workshop', image: "/illustrations/science-lab.svg", photo: 'classroom', color: '#06b6d4' },
+  { category: 'STEM', title: '3D Printing Lab', image: "/illustrations/science-lab.svg", photo: 'classroom', color: '#06b6d4' },
+  { category: 'Community', title: 'Community Service Day', image: "/illustrations/community-day.svg", photo: 'campus', color: '#10b981' },
+  { category: 'Community', title: 'PTA Fundraiser', image: "/illustrations/community-day.svg", photo: 'campus', color: '#10b981' },
+  { category: 'Students', title: 'Science Project', image: "/illustrations/science-lab.svg", photo: 'classroom', color: '#34d399' },
+  { category: 'Sports', title: 'Athletics Day', image: "/illustrations/sports-field.svg", photo: 'field', color: '#ef4444' }
 ]
 
 function PremiumGallery() {
@@ -30,8 +31,8 @@ function PremiumGallery() {
   const filtered = active === 'All' ? gallery : gallery.filter(item => item.category === active)
 
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <span style={styles.badge}>⭐ Premium</span>
         <h1 style={styles.pageTitle}>Photo Gallery</h1>
         <p style={styles.pageSubtitle}>A glimpse into life at Greenfield International School</p>
@@ -42,6 +43,9 @@ function PremiumGallery() {
           {categories.map(cat => (
             <button
               key={cat}
+              type="button"
+              aria-pressed={active === cat}
+              className="schoolweb-filter-button"
               onClick={() => setActive(cat)}
               style={{
                 ...styles.filterBtn,
@@ -54,13 +58,14 @@ function PremiumGallery() {
         </div>
       </section>
 
-      <section style={styles.grid}>
+      <section style={styles.grid} className="schoolweb-gallery-grid">
         {filtered.map(item => (
           <div key={item.title} style={styles.galleryCard}>
             <div style={{ ...styles.thumbnail, background: `linear-gradient(135deg, ${item.color}40, ${item.color}20)` }}>
-              <span style={{ ...styles.placeholderIcon, color: item.color }}>📷</span>
+              <img src={unsplashPhotos[item.photo].src} onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = item.image }} alt={item.title} loading="lazy" decoding="async" width="640" height="420" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <p style={styles.caption}>{item.title}</p>
+            <a className="schoolweb-photo-credit" href={unsplashPhotos[item.photo].page} target="_blank" rel="noreferrer">Photo by {unsplashPhotos[item.photo].photographer} on Unsplash</a>
             <span style={styles.categoryTag}>{item.category}</span>
           </div>
         ))}
@@ -85,7 +90,7 @@ const styles = {
     padding: '0.5rem 1.25rem', border: '2px solid #e2e8f0', background: '#fff',
     borderRadius: '2rem', fontSize: '0.9rem', cursor: 'pointer', color: '#475569'
   },
-  filterBtnActive: { background: '#7c3aed', borderColor: '#7c3aed', color: '#fff' },
+  filterBtnActive: { background: '#7c3aed', border: '2px solid #7c3aed', color: '#fff' },
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '2rem' },
   galleryCard: { background: '#fff', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' },
   thumbnail: { height: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center' },

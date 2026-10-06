@@ -5,7 +5,7 @@ const posts = [
     date: 'September 5, 2026',
     category: 'Events',
     title: 'Annual Sports Day 2026 — Save the Date',
-    excerpt: 'Our annual Sports Day will be held on Saturday, 20 September at the main field. Families are warmly invited to cheer on our students.',
+    excerpt: 'Our annual Sports Day will be held on Saturday, 17 October at the main field. Families are warmly invited to cheer on our students.',
     featured: true
   },
   {
@@ -55,8 +55,8 @@ const posts = [
 
 function PremiumNews() {
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <span style={styles.badge}>⭐ Premium</span>
         <h1 style={styles.pageTitle}>News & Announcements</h1>
         <p style={styles.pageSubtitle}>Stay up to date with the latest from Greenfield International School</p>
@@ -64,7 +64,7 @@ function PremiumNews() {
 
       <section style={styles.featured}>
         <h2 style={styles.sectionTitle}>Featured Posts</h2>
-        <div style={styles.featuredGrid}>
+        <div style={styles.featuredGrid} className="schoolweb-responsive-2">
           {posts.filter(p => p.featured).map(post => (
             <article key={post.title} style={styles.featuredCard}>
               <div style={styles.postMeta}>
@@ -73,7 +73,7 @@ function PremiumNews() {
               </div>
               <h2 style={styles.featuredTitle}>{post.title}</h2>
               <p style={styles.postExcerpt}>{post.excerpt}</p>
-              <Link to="#" style={styles.readMore}>Read More →</Link>
+              <span style={styles.readMore}>Preview only</span>
             </article>
           ))}
         </div>
@@ -90,7 +90,7 @@ function PremiumNews() {
               </div>
               <h3 style={styles.postTitle}>{post.title}</h3>
               <p style={styles.postExcerpt}>{post.excerpt}</p>
-              <Link to="#" style={styles.readMore}>Read More →</Link>
+              <span style={styles.readMore}>Preview only</span>
             </article>
           ))}
         </div>

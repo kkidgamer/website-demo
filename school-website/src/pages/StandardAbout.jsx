@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 function StandardAbout() {
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <h1 style={styles.pageTitle}>About Us</h1>
         <p style={styles.pageSubtitle}>Our story, mission, and vision</p>
       </section>
@@ -43,8 +43,8 @@ function StandardAbout() {
 
       <section style={styles.mission}>
         <h2 style={styles.sectionTitle}>Mission & Vision</h2>
-        <div style={styles.missionGrid}>
-          <div style={styles.missionCard}>
+        <div style={styles.missionGrid} className="schoolweb-responsive-2">
+          <div style={styles.missionCard} className="schoolweb-surface">
             <h3 style={styles.missionLabel}>Our Mission</h3>
             <p style={styles.missionText}>
               To provide a safe, inclusive, and stimulating learning environment that
@@ -52,7 +52,7 @@ function StandardAbout() {
               thrive in school, career, and life.
             </p>
           </div>
-          <div style={styles.missionCard}>
+          <div style={styles.missionCard} className="schoolweb-surface">
             <h3 style={styles.missionLabel}>Our Vision</h3>
             <p style={styles.missionText}>
               To be a leading school known for producing thoughtful, capable, and

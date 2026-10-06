@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function Premium() {
   return (
-    <div style={styles.container}>
+    <div style={styles.container} className="schoolweb-page">
       <div style={styles.header}>
         <h1 style={styles.title}>Premium Package</h1>
         <p style={styles.tagline}>&quot;Full-Service School Platform&quot;</p>

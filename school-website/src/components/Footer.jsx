@@ -2,9 +2,12 @@ function Footer() {
   return (
     <footer style={styles.footer}>
       <div style={styles.container}>
-        <p style={styles.copyright}>
-          © 2026 SchoolWeb. All rights reserved.
-        </p>
+        <div className="schoolweb-footer-content">
+          <span className="schoolweb-footer-mark" aria-hidden="true">S</span>
+          <p style={styles.copyright}>
+            © {new Date().getFullYear()} SchoolWeb. Built for curious minds.
+          </p>
+        </div>
       </div>
     </footer>
   )

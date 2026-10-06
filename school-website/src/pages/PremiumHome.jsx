@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
+import { unsplashPhotos } from '../data/unsplashPhotos'
 
 function PremiumHome() {
   return (
-    <div style={styles.container}>
-      <section style={styles.hero}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.hero} className="schoolweb-hero">
         <div style={styles.heroContent}>
           <span style={styles.badge}>⭐ Premium Experience</span>
           <h1 style={styles.heroTitle}>Welcome to Greenfield International School</h1>
@@ -11,18 +12,19 @@ function PremiumHome() {
             Empowering young minds for a brighter tomorrow since 1985
           </p>
           <div style={styles.heroButtons}>
-            <Link to="/premium/academics" style={styles.primaryBtn}>Explore Academics</Link>
-            <Link to="/premium/contact" style={styles.secondaryBtn}>Contact Us</Link>
+            <Link className="schoolweb-button" to="/premium/academics" style={styles.primaryBtn}>Explore Academics</Link>
+            <Link className="schoolweb-button" to="/premium/contact" style={styles.secondaryBtn}>Contact Us</Link>
           </div>
         </div>
         <div style={styles.heroImage}>
-          <div style={styles.heroPlaceholder}>
-            <span style={styles.heroIcon}>🏫</span>
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.55rem' }}>
+            <img src={unsplashPhotos.campus.src} onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = '/illustrations/campus.svg' }} alt="Students outside a school building" width="520" height="360" fetchPriority="high" style={{ width: '100%', maxWidth: '520px', height: 'auto', borderRadius: '16px' }} />
+            <a className="schoolweb-photo-credit" href={unsplashPhotos.campus.page} target="_blank" rel="noreferrer">Photo by {unsplashPhotos.campus.photographer} on Unsplash</a>
           </div>
         </div>
       </section>
 
-      <section style={styles.stats}>
+      <section style={styles.stats} className="schoolweb-responsive-4">
         {[
           { number: '800+', label: 'Students' },
           { number: '60+', label: 'Teachers' },
@@ -36,7 +38,7 @@ function PremiumHome() {
         ))}
       </section>
 
-      <section style={styles.aboutPreview}>
+      <section style={styles.aboutPreview} className="schoolweb-feature-panel">
         <div style={styles.sectionContent}>
           <h2 style={styles.sectionTitle}>About Our School</h2>
           <p style={styles.paragraph}>
@@ -73,9 +75,9 @@ function PremiumHome() {
         <h2 style={styles.sectionTitle}>Upcoming Events</h2>
         <div style={styles.eventsList}>
           {[
-            { date: 'Sep 20', title: 'Annual Sports Day', time: '9:00 AM' },
-            { date: 'Sep 25', title: 'Open Day & Campus Tour', time: '5:00 PM' },
-            { date: 'Oct 10', title: 'STEM Fair 2026', time: '9:00 AM' }
+            { date: 'Oct 17', title: 'Annual Sports Day', time: '9:00 AM' },
+            { date: 'Oct 24', title: 'Open Day & Campus Tour', time: '5:00 PM' },
+            { date: 'Nov 7', title: 'STEM Fair 2026', time: '9:00 AM' }
           ].map(event => (
             <div key={event.title} style={styles.eventItem}>
               <div style={styles.eventDate}>{event.date}</div>
@@ -89,12 +91,12 @@ function PremiumHome() {
         <Link to="/premium/events" style={styles.viewAll}>View All Events →</Link>
       </section>
 
-      <section style={styles.cta}>
+      <section style={styles.cta} className="schoolweb-cta">
         <h2 style={styles.ctaTitle}>Ready to Join Greenfield?</h2>
         <p style={styles.ctaText}>
           Admissions are now open for the upcoming academic year. Schedule a campus tour today.
         </p>
-        <Link to="/premium/contact" style={styles.ctaButton}>Apply for Admission</Link>
+        <Link className="schoolweb-button" to="/premium/contact" style={styles.ctaButton}>Apply for Admission</Link>
       </section>
     </div>
   )

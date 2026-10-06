@@ -1,36 +1,37 @@
 import { Link } from 'react-router-dom'
+import { buildCalendarHref, eventDateParts } from '../utils/events'
 
 const events = [
   {
-    date: 'September 20, 2026',
+    date: 'October 17, 2026',
     time: '9:00 AM - 3:00 PM',
     title: 'Annual Sports Day',
     desc: 'Inter-house sports competitions, relay races, and family-friendly activities for all grades.',
     location: 'Main School Field'
   },
   {
-    date: 'September 25, 2026',
+    date: 'October 24, 2026',
     time: '5:00 PM - 7:00 PM',
     title: 'Open Day & Campus Tour',
     desc: 'Prospective families are invited to tour the campus, meet teachers, and learn about our programs.',
     location: 'School Auditorium'
   },
   {
-    date: 'October 10, 2026',
+    date: 'November 7, 2026',
     time: '9:00 AM - 12:00 PM',
     title: 'STEM Fair 2026',
     desc: 'Students showcase science projects, robotics demonstrations, and innovation booths.',
     location: 'School Hall & Science Labs'
   },
   {
-    date: 'October 15, 2026',
+    date: 'November 14, 2026',
     time: '6:00 PM - 8:00 PM',
     title: 'PTA General Meeting',
     desc: 'Join our Parent-Teacher Association meeting to discuss upcoming events and volunteer opportunities.',
     location: 'Staff Room'
   },
   {
-    date: 'November 3, 2026',
+    date: 'November 21, 2026',
     time: '4:00 PM - 6:00 PM',
     title: 'Cultural Heritage Day',
     desc: 'Students and families share food, music, and traditions from their diverse cultural backgrounds.',
@@ -50,8 +51,8 @@ const more = events.slice(3)
 
 function StandardEvents() {
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <h1 style={styles.pageTitle}>Events Calendar</h1>
         <p style={styles.pageSubtitle}>Save the date for our upcoming school events</p>
       </section>
@@ -60,13 +61,13 @@ function StandardEvents() {
         <h2 style={styles.sectionTitle}>Upcoming Events</h2>
         <div style={styles.eventList}>
           {upcoming.map(event => (
-            <div key={event.title} style={styles.eventCard}>
-              <div style={styles.eventDate}>
+            <div key={event.title} style={styles.eventCard} className="schoolweb-event-card">
+              <div style={styles.eventDate} className="schoolweb-event-date">
                 <div style={styles.eventMonth}>
-                  {new Date(event.date).toLocaleString('default', { month: 'short' }).toUpperCase()}
+                  {eventDateParts(event.date).month}
                 </div>
                 <div style={styles.eventDay}>
-                  {new Date(event.date).getDate()}
+                  {eventDateParts(event.date).day}
                 </div>
               </div>
               <div style={styles.eventDetails}>
@@ -74,8 +75,8 @@ function StandardEvents() {
                 <p style={styles.eventTime}>🕐 {event.time}</p>
                 <p style={styles.eventLocation}>📍 {event.location}</p>
                 <p style={styles.eventDesc}>{event.desc}</p>
-                <div style={styles.eventAction}>
-                  <span style={styles.rsvpButton}>📅 Add to Calendar</span>
+                <div style={styles.eventAction} className="schoolweb-event-actions">
+                  <a className="schoolweb-button" href={buildCalendarHref(event)} download={`${event.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.ics`} style={styles.rsvpButton}>📅 Add to Calendar</a>
                 </div>
               </div>
             </div>
@@ -88,12 +89,12 @@ function StandardEvents() {
         <div style={styles.eventList}>
           {more.map(event => (
             <div key={event.title} style={styles.eventCardLite}>
-              <div style={styles.eventDate}>
+              <div style={styles.eventDate} className="schoolweb-event-date">
                 <div style={styles.eventMonth}>
-                  {new Date(event.date).toLocaleString('default', { month: 'short' }).toUpperCase()}
+                  {eventDateParts(event.date).month}
                 </div>
                 <div style={styles.eventDay}>
-                  {new Date(event.date).getDate()}
+                  {eventDateParts(event.date).day}
                 </div>
               </div>
               <div style={styles.eventDetailsLite}>

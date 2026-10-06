@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 function BasicAdmissions() {
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <h1 style={styles.pageTitle}>Admissions</h1>
         <p style={styles.pageSubtitle}>Join the Greenfield International School family</p>
       </section>
@@ -22,7 +22,7 @@ function BasicAdmissions() {
         <h2 style={styles.sectionTitle}>How to Apply</h2>
         <div style={styles.steps}>
           {[
-            { step: '1', title: 'Submit Application', desc: 'Complete and submit the online application form along with required documents.' },
+            { step: '1', title: 'Submit Application', desc: 'Complete and submit an application form with the required documents. Contact admissions for the form and submission details.' },
             { step: '2', title: 'Schedule a Visit', desc: 'We invite families to tour our campus and meet with our admissions team.' },
             { step: '3', title: 'Assessment', desc: 'Students complete a brief age-appropriate assessment to help us understand their needs.' },
             { step: '4', title: 'Enrollment', desc: 'Successful applicants receive an offer letter and can complete the enrollment process.' }
@@ -59,7 +59,7 @@ function BasicAdmissions() {
         <div style={styles.feeBox}>
           <p style={styles.feeNote}>
             For detailed fee information including tuition, boarding, and activity fees,
-            please contact our admissions office or download the fee structure document.
+            please contact our admissions office.
           </p>
           <Link to="/basic/contact" style={styles.feeLink}>Contact Admissions →</Link>
         </div>

@@ -54,10 +54,11 @@ function Navbar() {
   const currentLinks = navItems[packageType];
 
   return (
-    <nav style={styles.nav}>
+    <nav style={styles.nav} aria-label="Main navigation">
       <div style={styles.container} className="schoolweb-nav-container">
-        <Link to={`/${packageType}`} style={styles.logo}>
-          🏫 SchoolWeb
+        <Link to={`/${packageType}`} style={styles.logo} className="schoolweb-brand">
+          <span className="schoolweb-brand-mark" aria-hidden="true">S</span>
+          <span>SchoolWeb</span>
         </Link>
 
         <div style={styles.navLinks} className="schoolweb-nav-links">
@@ -66,6 +67,7 @@ function Navbar() {
               key={item.path}
               to={item.path}
               end={item.path === `/${packageType}`}
+              className="schoolweb-nav-link"
               style={({ isActive }) => ({
                 ...styles.link,
                 ...(isActive ? styles.activeLink : {}),

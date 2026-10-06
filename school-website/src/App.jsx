@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import StandardHome from './pages/StandardHome'
@@ -30,12 +31,26 @@ import StandardPricing from './pages/Standard'
 import PremiumPricing from './pages/Premium'
 import NotFound from './pages/NotFound'
 
+function RouteTitle() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    const section = pathname.split('/').filter(Boolean).at(-1) || 'School website demo'
+    const title = section.replace(/-/g, ' ').replace(/\b\w/g, letter => letter.toUpperCase())
+    document.title = `${title} | SchoolWeb`
+  }, [pathname])
+
+  return null
+}
+
 function App() {
   return (
     <BrowserRouter>
+      <RouteTitle />
       <Navbar />
       <main>
         <Routes>
+          <Route path="/" element={<Navigate to="/standard" replace />} />
           {/* Basic (Starter) package demo site */}
           <Route path="/basic" element={<BasicHome />} />
           <Route path="/basic/about" element={<BasicAbout />} />

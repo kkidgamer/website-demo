@@ -17,8 +17,8 @@ const staff = [
 
 function StandardStaff() {
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <h1 style={styles.pageTitle}>Staff Directory</h1>
         <p style={styles.pageSubtitle}>Meet the dedicated team behind Greenfield International School</p>
       </section>

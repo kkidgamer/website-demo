@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { buildContactMailto, CONTACT_EMAIL } from '../utils/contact'
 
 function BasicContact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -8,23 +9,21 @@ function BasicContact() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    const subject = form.subject || 'General Inquiry'
-    const body = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-    window.location.href = `mailto:office@greenfield.academy?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = buildContactMailto(form)
   }
 
   return (
-    <div style={styles.container}>
-      <section style={styles.pageHeader}>
+    <div style={styles.container} className="schoolweb-page">
+      <section style={styles.pageHeader} className="schoolweb-page-header">
         <h1 style={styles.pageTitle}>Contact Us</h1>
-        <p style={styles.pageSubtitle}>We'd love to hear from you</p>
+        <p style={styles.pageSubtitle}>We&apos;d love to hear from you</p>
       </section>
 
       <div style={styles.contactGrid} className="schoolweb-contact-grid">
         <section style={styles.contactInfo}>
           <h2 style={styles.sectionTitle}>Get in Touch</h2>
 
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} className="schoolweb-surface">
             <div style={styles.infoIcon}>📍</div>
             <div>
               <h3 style={styles.infoLabel}>Our Location</h3>
@@ -36,7 +35,7 @@ function BasicContact() {
             </div>
           </div>
 
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} className="schoolweb-surface">
             <div style={styles.infoIcon}>📞</div>
             <div>
               <h3 style={styles.infoLabel}>Phone</h3>
@@ -44,15 +43,15 @@ function BasicContact() {
             </div>
           </div>
 
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} className="schoolweb-surface">
             <div style={styles.infoIcon}>✉️</div>
             <div>
               <h3 style={styles.infoLabel}>Email</h3>
-              <a href="mailto:office@greenfield.academy" style={styles.infoLink}>office@greenfield.academy</a>
+              <a href={`mailto:${CONTACT_EMAIL}`} style={styles.infoLink}>{CONTACT_EMAIL}</a>
             </div>
           </div>
 
-          <div style={styles.infoItem}>
+          <div style={styles.infoItem} className="schoolweb-surface">
             <div style={styles.infoIcon}>🕐</div>
             <div>
               <h3 style={styles.infoLabel}>Office Hours</h3>
@@ -66,10 +65,10 @@ function BasicContact() {
           <h2 style={styles.sectionTitle}>Send Us a Message</h2>
           <form style={styles.form} onSubmit={handleSubmit}>
             <div style={styles.formGroup}>
-              <label style={styles.label}>Full Name</label>
+              <label htmlFor="name" style={styles.label}>Full Name</label>
               <input
                 type="text"
-                name="name"
+                id="name" name="name"
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Your full name"
@@ -79,10 +78,10 @@ function BasicContact() {
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>Email Address</label>
+              <label htmlFor="email" style={styles.label}>Email Address</label>
               <input
                 type="email"
-                name="email"
+                id="email" name="email"
                 value={form.email}
                 onChange={handleChange}
                 placeholder="your@email.com"
@@ -92,19 +91,19 @@ function BasicContact() {
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>Subject</label>
-              <select name="subject" value={form.subject} onChange={handleChange} style={styles.select}>
+              <label htmlFor="subject" style={styles.label}>Subject</label>
+              <select id="subject" name="subject" value={form.subject} onChange={handleChange} style={styles.select}>
                 <option value="">Select a subject</option>
-                <option value="admissions">Admissions Inquiry</option>
-                <option value="general">General Inquiry</option>
-                <option value="other">Other</option>
+                <option value="Admissions Inquiry">Admissions Inquiry</option>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>Message</label>
+              <label htmlFor="message" style={styles.label}>Message</label>
               <textarea
-                name="message"
+                id="message" name="message"
                 value={form.message}
                 onChange={handleChange}
                 placeholder="How can we help you?"
@@ -114,10 +113,10 @@ function BasicContact() {
               />
             </div>
 
-            <button type="submit" style={styles.submitBtn}>Send Message</button>
+            <button type="submit" style={styles.submitBtn}>Continue to Email App</button>
 
             <p style={styles.formNote}>
-              Your email app will open with the message ready to send.
+              We&apos;ll open a draft addressed to <a href={`mailto:${CONTACT_EMAIL}`} style={styles.infoLink}>{CONTACT_EMAIL}</a>. Review and send it in your email app; this site can&apos;t confirm delivery.
             </p>
           </form>
         </section>
