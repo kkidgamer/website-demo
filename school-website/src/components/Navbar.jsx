@@ -55,12 +55,12 @@ function Navbar() {
 
   return (
     <nav style={styles.nav}>
-      <div style={styles.container}>
+      <div style={styles.container} className="schoolweb-nav-container">
         <Link to={`/${packageType}`} style={styles.logo}>
           🏫 SchoolWeb
         </Link>
 
-        <div style={styles.navLinks}>
+        <div style={styles.navLinks} className="schoolweb-nav-links">
           {currentLinks.map((item) => (
             <NavLink
               key={item.path}

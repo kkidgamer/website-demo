@@ -6,6 +6,13 @@ function StandardContact() {
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    const subject = form.subject || 'General Inquiry'
+    const body = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+    window.location.href = `mailto:office@greenfield.academy?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  }
+
   return (
     <div style={styles.container}>
       <section style={styles.pageHeader}>
@@ -13,7 +20,7 @@ function StandardContact() {
         <p style={styles.pageSubtitle}>We'd love to hear from you</p>
       </section>
 
-      <div style={styles.contactGrid}>
+      <div style={styles.contactGrid} className="schoolweb-contact-grid">
         <section style={styles.contactInfo}>
           <h2 style={styles.sectionTitle}>Get in Touch</h2>
 
@@ -58,14 +65,20 @@ function StandardContact() {
             </div>
           </div>
 
-          <div style={styles.mapPlaceholder}>
-            <span>🗺️ School Location Map</span>
+          <div style={styles.map}>
+            <iframe
+              title="School location map"
+              src="https://www.google.com/maps?q=123+Education+Avenue,+Nairobi,+Kenya&output=embed"
+              style={styles.mapFrame}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </section>
 
         <section style={styles.contactForm}>
           <h2 style={styles.sectionTitle}>Send Us a Message</h2>
-          <form style={styles.form} onSubmit={e => e.preventDefault()}>
+          <form style={styles.form} onSubmit={handleSubmit}>
             <div style={styles.formGroup}>
               <label style={styles.label}>Full Name</label>
               <input
@@ -147,7 +160,8 @@ const styles = {
   infoLabel: { fontSize: '0.95rem', color: '#2563eb', marginBottom: '0.3rem' },
   infoText: { fontSize: '0.92rem', color: '#475569', lineHeight: 1.6, margin: 0 },
   infoLink: { fontSize: '0.92rem', color: '#2563eb', textDecoration: 'none', lineHeight: 1.6 },
-  mapPlaceholder: { background: '#f1f5f9', borderRadius: '10px', padding: '2rem', textAlign: 'center', color: '#64748b', fontSize: '0.9rem' },
+  map: { marginTop: '1.5rem', overflow: 'hidden', borderRadius: '10px' },
+  mapFrame: { width: '100%', minHeight: '240px', border: 0 },
   form: { display: 'flex', flexDirection: 'column' },
   formGroup: { marginBottom: '1.25rem' },
   label: { display: 'block', fontSize: '0.9rem', color: '#334155', marginBottom: '0.4rem', fontWeight: 500 },

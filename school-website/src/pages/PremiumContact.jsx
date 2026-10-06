@@ -6,6 +6,21 @@ function PremiumContact() {
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
+    const subject = data.get('subject') || 'General Inquiry'
+    const body = [
+      `Name: ${data.get('firstName') || ''} ${data.get('lastName') || ''}`.trim(),
+      `Email: ${data.get('email') || ''}`,
+      `Phone: ${data.get('phone') || ''}`,
+      '',
+      data.get('message') || ''
+    ].join('\n')
+
+    window.location.href = `mailto:office@greenfield.academy?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  }
+
   return (
     <div style={styles.container}>
       <section style={styles.pageHeader}>
@@ -14,7 +29,7 @@ function PremiumContact() {
         <p style={styles.pageSubtitle}>We'd love to hear from you</p>
       </section>
 
-      <div style={styles.contactGrid}>
+      <div style={styles.contactGrid} className="schoolweb-contact-grid">
         <section style={styles.contactInfo}>
           <h2 style={styles.sectionTitle}>Get in Touch</h2>
 
@@ -59,22 +74,28 @@ function PremiumContact() {
             </div>
           </div>
 
-          <div style={styles.mapPlaceholder}>
-            <span>🗺️ School Location Map</span>
+          <div style={styles.map}>
+            <iframe
+              title="School location map"
+              src="https://www.google.com/maps?q=123+Education+Avenue,+Nairobi,+Kenya&output=embed"
+              style={styles.mapFrame}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </section>
 
         <section style={styles.contactForm}>
           <h2 style={styles.sectionTitle}>Send Us a Message</h2>
-          <form style={styles.form} onSubmit={e => e.preventDefault()}>
-            <div style={styles.formRow}>
+          <form style={styles.form} onSubmit={handleSubmit}>
+            <div style={styles.formRow} className="schoolweb-form-row">
               <div style={styles.formGroup}>
                 <label style={styles.label}>First Name</label>
-                <input type="text" placeholder="First name" style={styles.input} required />
+                <input type="text" name="firstName" placeholder="First name" style={styles.input} required />
               </div>
               <div style={styles.formGroup}>
                 <label style={styles.label}>Last Name</label>
-                <input type="text" placeholder="Last name" style={styles.input} required />
+                <input type="text" name="lastName" placeholder="Last name" style={styles.input} required />
               </div>
             </div>
 
@@ -93,7 +114,7 @@ function PremiumContact() {
 
             <div style={styles.formGroup}>
               <label style={styles.label}>Phone Number</label>
-              <input type="tel" placeholder="+254 700 000 000" style={styles.input} />
+              <input type="tel" name="phone" placeholder="+254 700 000 000" style={styles.input} />
             </div>
 
             <div style={styles.formGroup}>
@@ -125,7 +146,7 @@ function PremiumContact() {
             <button type="submit" style={styles.submitBtn}>Send Message</button>
 
             <p style={styles.formNote}>
-              We typically respond within 24 hours. For urgent matters, please call us directly.
+              Your email app will open with the message ready to send.
             </p>
           </form>
         </section>
@@ -153,7 +174,8 @@ const styles = {
   infoLabel: { fontSize: '0.95rem', color: '#7c3aed', marginBottom: '0.3rem' },
   infoText: { fontSize: '0.92rem', color: '#475569', lineHeight: 1.6, margin: 0 },
   infoLink: { fontSize: '0.92rem', color: '#7c3aed', textDecoration: 'none', lineHeight: 1.6 },
-  mapPlaceholder: { background: '#f1f5f9', borderRadius: '10px', padding: '2rem', textAlign: 'center', color: '#64748b', fontSize: '0.9rem' },
+  map: { marginTop: '1.5rem', overflow: 'hidden', borderRadius: '10px' },
+  mapFrame: { width: '100%', minHeight: '240px', border: 0 },
   form: { display: 'flex', flexDirection: 'column' },
   formRow: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' },
   formGroup: { marginBottom: '1.25rem' },

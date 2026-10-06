@@ -18,15 +18,3 @@ const styles = {
 }
 
 export default NotFound
-
-diff --git a/school-website/src/data/school.js b/school-website/src/data/school.js
-new file mode 100644
---- /dev/null
-+++ b/school-website/src/data/school.js
-@@ -0,0 +1,29 @@
-+// Single source of truth for school-specific content used by the template.
-+export const school = {
-+  name: 'Greenfield International School',
-+  address: ['123 Education Avenue', 'Nairobi, Kenya'],
-+  phone: '+254 700 123 456',
-+  email: 'office@greenfield.academy',

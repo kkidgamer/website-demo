@@ -26,3 +26,66 @@ a {
 button {
   cursor: pointer;
 }
+
+
+/* Responsive layout helpers */
+.schoolweb-nav-links {
+  min-width: 0;
+}
+
+.schoolweb-contact-grid {
+  width: 100%;
+}
+
+.schoolweb-form-row {
+  width: 100%;
+}
+
+.schoolweb-download-item {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .schoolweb-nav-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .schoolweb-nav-links {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start;
+    gap: 1rem !important;
+    padding-bottom: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .schoolweb-nav-links a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .schoolweb-contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .schoolweb-form-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .schoolweb-download-item {
+    flex-wrap: wrap;
+  }
+
+  .schoolweb-download-info {
+    min-width: 0;
+    flex: 1 1 180px;
+  }
+
+  .schoolweb-download-link {
+    flex: 0 0 auto;
+  }
+}

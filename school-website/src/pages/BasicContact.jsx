@@ -6,6 +6,13 @@ function BasicContact() {
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    const subject = form.subject || 'General Inquiry'
+    const body = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+    window.location.href = `mailto:office@greenfield.academy?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  }
+
   return (
     <div style={styles.container}>
       <section style={styles.pageHeader}>
@@ -13,7 +20,7 @@ function BasicContact() {
         <p style={styles.pageSubtitle}>We'd love to hear from you</p>
       </section>
 
-      <div style={styles.contactGrid}>
+      <div style={styles.contactGrid} className="schoolweb-contact-grid">
         <section style={styles.contactInfo}>
           <h2 style={styles.sectionTitle}>Get in Touch</h2>
 
@@ -57,7 +64,7 @@ function BasicContact() {
 
         <section style={styles.contactForm}>
           <h2 style={styles.sectionTitle}>Send Us a Message</h2>
-          <form style={styles.form} onSubmit={e => e.preventDefault()}>
+          <form style={styles.form} onSubmit={handleSubmit}>
             <div style={styles.formGroup}>
               <label style={styles.label}>Full Name</label>
               <input
@@ -110,7 +117,7 @@ function BasicContact() {
             <button type="submit" style={styles.submitBtn}>Send Message</button>
 
             <p style={styles.formNote}>
-              We typically respond within 1-2 business days.
+              Your email app will open with the message ready to send.
             </p>
           </form>
         </section>

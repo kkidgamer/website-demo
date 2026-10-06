@@ -1,5 +1,15 @@
 import { Link } from 'react-router-dom'
 
+const downloadPath = name => {
+  const slug = name
+    .toLowerCase()
+    .replace(/\(pdf\)/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+
+  return `/downloads/${slug}.pdf`
+}
+
 const resources = [
   {
     category: 'Admissions',
@@ -69,13 +79,13 @@ function PremiumDownloads() {
             <h2 style={styles.categoryTitle}>{section.category}</h2>
             <div style={styles.itemList}>
               {section.items.map(item => (
-                <div key={item.name} style={styles.downloadItem}>
+                <div key={item.name} style={styles.downloadItem} className="schoolweb-download-item">
                   <div style={styles.downloadIcon}>📄</div>
-                  <div style={styles.downloadInfo}>
+                  <div style={styles.downloadInfo} className="schoolweb-download-info">
                     <p style={styles.downloadName}>{item.name}</p>
                     <p style={styles.downloadSize}>{item.size}</p>
                   </div>
-                  <a href="#" style={styles.downloadLink} download>
+                  <a href={downloadPath(item.name)} className="schoolweb-download-link" style={styles.downloadLink} download>
                     Download
                   </a>
                 </div>

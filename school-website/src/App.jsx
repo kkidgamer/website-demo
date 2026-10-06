@@ -28,6 +28,7 @@ import PremiumTestimonials from './pages/PremiumTestimonials'
 import StarterPricing from './pages/Starter'
 import StandardPricing from './pages/Standard'
 import PremiumPricing from './pages/Premium'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -69,6 +70,9 @@ function App() {
           <Route path="/basic/pricing" element={<StarterPricing />} />
           <Route path="/standard/pricing" element={<StandardPricing />} />
           <Route path="/premium/pricing" element={<PremiumPricing />} />
+
+          {/* Catch-all route */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
