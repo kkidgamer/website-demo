@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { buildCalendarHref, eventDateParts } from '../utils/events'
+import { CMS_API_BASE } from '../utils/cmsApi'
 
 const events = [
   {
@@ -46,10 +48,25 @@ const events = [
   }
 ]
 
-const upcoming = events.slice(0, 3)
-const more = events.slice(3)
-
 function StandardEvents() {
+  const [cmsEvents, setCmsEvents] = useState(null)
+
+  useEffect(() => {
+    if (!CMS_API_BASE) return undefined
+    const controller = new AbortController()
+    fetch(`${CMS_API_BASE}/api/events/`, { signal: controller.signal })
+      .then(response => response.ok ? response.json() : Promise.reject(new Error('Could not load events')))
+      .then(data => setCmsEvents(data.events.map(formatCmsEvent)))
+      .catch(error => {
+        if (error.name !== 'AbortError') console.error('Could not load CMS events:', error)
+      })
+    return () => controller.abort()
+  }, [])
+
+  const displayedEvents = cmsEvents ?? events
+  const upcoming = displayedEvents.filter(event => new Date(event.startsAt) >= new Date())
+  const more = displayedEvents.filter(event => new Date(event.startsAt) < new Date())
+
   return (
     <div style={styles.container} className="schoolweb-page">
       <section style={styles.pageHeader} className="schoolweb-page-header">
@@ -61,7 +78,7 @@ function StandardEvents() {
         <h2 style={styles.sectionTitle}>Upcoming Events</h2>
         <div style={styles.eventList}>
           {upcoming.map(event => (
-            <div key={event.title} style={styles.eventCard} className="schoolweb-event-card">
+            <div key={event.id ?? event.title} style={styles.eventCard} className="schoolweb-event-card">
               <div style={styles.eventDate} className="schoolweb-event-date">
                 <div style={styles.eventMonth}>
                   {eventDateParts(event.date).month}
@@ -76,11 +93,13 @@ function StandardEvents() {
                 <p style={styles.eventLocation}>📍 {event.location}</p>
                 <p style={styles.eventDesc}>{event.desc}</p>
                 <div style={styles.eventAction} className="schoolweb-event-actions">
+                  {event.registration_url && <a className="schoolweb-button" href={event.registration_url} target="_blank" rel="noreferrer" style={styles.rsvpButton}>Register</a>}
                   <a className="schoolweb-button" href={buildCalendarHref(event)} download={`${event.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.ics`} style={styles.rsvpButton}>📅 Add to Calendar</a>
                 </div>
               </div>
             </div>
           ))}
+          {upcoming.length === 0 && <p className="schoolweb-empty-content">No upcoming events are scheduled right now.</p>}
         </div>
       </section>
 
@@ -88,7 +107,7 @@ function StandardEvents() {
         <h2 style={styles.sectionTitle}>More Events</h2>
         <div style={styles.eventList}>
           {more.map(event => (
-            <div key={event.title} style={styles.eventCardLite}>
+            <div key={event.id ?? event.title} style={styles.eventCardLite}>
               <div style={styles.eventDate} className="schoolweb-event-date">
                 <div style={styles.eventMonth}>
                   {eventDateParts(event.date).month}
@@ -104,6 +123,7 @@ function StandardEvents() {
               </div>
             </div>
           ))}
+          {more.length === 0 && <p className="schoolweb-empty-content">Check back soon for more school events.</p>}
         </div>
       </section>
 
@@ -113,6 +133,25 @@ function StandardEvents() {
     </div>
   )
 }
+
+function formatCmsEvent(event) {
+  const start = new Date(event.starts_at)
+  const end = event.ends_at ? new Date(event.ends_at) : new Date(start.getTime() + 60 * 60 * 1000)
+  const dateOptions = { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'Africa/Nairobi' }
+  const timeOptions = { hour: 'numeric', minute: '2-digit', timeZone: 'Africa/Nairobi' }
+  return {
+    ...event,
+    startsAt: event.starts_at,
+    date: new Intl.DateTimeFormat('en-US', dateOptions).format(start),
+    time: `${new Intl.DateTimeFormat('en-US', timeOptions).format(start)} - ${new Intl.DateTimeFormat('en-US', timeOptions).format(end)}`,
+    desc: event.description,
+  }
+}
+
+events.forEach((event, index) => {
+  event.id = `demo-${index}`
+  event.startsAt = new Date(`${event.date} ${event.time.split(' - ')[0]} GMT+0300`).toISOString()
+})
 
 const styles = {
   container: { maxWidth: '900px', margin: '0 auto', padding: '0 1rem' },

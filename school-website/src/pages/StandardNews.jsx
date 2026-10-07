@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { CMS_API_BASE } from '../utils/cmsApi'
 
 const posts = [
   {
@@ -40,6 +42,22 @@ const posts = [
 ]
 
 function StandardNews() {
+  const [cmsPosts, setCmsPosts] = useState(null)
+
+  useEffect(() => {
+    if (!CMS_API_BASE) return undefined
+    const controller = new AbortController()
+    fetch(`${CMS_API_BASE}/api/news/`, { signal: controller.signal })
+      .then(response => response.ok ? response.json() : Promise.reject(new Error('Could not load news')))
+      .then(data => setCmsPosts(data.articles))
+      .catch(error => {
+        if (error.name !== 'AbortError') console.error('Could not load CMS news:', error)
+      })
+    return () => controller.abort()
+  }, [])
+
+  const displayedPosts = cmsPosts ?? posts
+
   return (
     <div style={styles.container} className="schoolweb-page">
       <section style={styles.pageHeader} className="schoolweb-page-header">
@@ -49,17 +67,19 @@ function StandardNews() {
 
       <section style={styles.posts}>
         <div style={styles.postGrid}>
-          {posts.map(post => (
-            <article key={post.title} style={styles.postCard}>
+          {displayedPosts.map(post => (
+            <article key={post.id ?? post.title} style={styles.postCard}>
               <div style={styles.postMeta}>
-                <span style={styles.categoryBadge}>{post.category}</span>
-                <span style={styles.postDate}>{post.date}</span>
+                {post.category && <span style={styles.categoryBadge}>{post.category}</span>}
+                <span style={styles.postDate}>{post.date ?? new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'Africa/Nairobi' }).format(new Date(post.published_on))}</span>
               </div>
               <h2 style={styles.postTitle}>{post.title}</h2>
               <p style={styles.postExcerpt}>{post.excerpt}</p>
-              <span style={styles.readMore}>Preview only</span>
+              {post.image_url && <img src={post.image_url} alt="" style={styles.postImage} />}
+              {post.body && <details className="schoolweb-news-details"><summary>Read article</summary><p>{post.body}</p></details>}
             </article>
           ))}
+          {displayedPosts.length === 0 && <p className="schoolweb-empty-content">There are no news updates right now.</p>}
         </div>
       </section>
 
@@ -83,6 +103,7 @@ const styles = {
   postDate: { color: '#64748b' },
   postTitle: { fontSize: '1.1rem', color: '#1e3a5f', marginBottom: '0.75rem', lineHeight: 1.4 },
   postExcerpt: { fontSize: '0.92rem', color: '#475569', lineHeight: 1.6, flex: 1, marginBottom: '1rem' },
+  postImage: { width: '100%', maxHeight: '220px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem' },
   readMore: { color: '#2563eb', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.9rem', alignSelf: 'flex-start' },
   backNav: { textAlign: 'center', marginTop: '1rem' },
   backLink: { color: '#2563eb', textDecoration: 'none', fontWeight: 500 }

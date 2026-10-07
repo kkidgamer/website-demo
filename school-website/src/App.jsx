@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import CmsPage from './components/CmsPage'
+import AnnouncementBanner from './components/AnnouncementBanner'
 import StandardHome from './pages/StandardHome'
 import StandardAbout from './pages/StandardAbout'
 import StandardAcademics from './pages/StandardAcademics'
@@ -59,15 +61,15 @@ function App() {
           <Route path="/basic/gallery" element={<BasicGallery />} />
 
           {/* Standard package demo site */}
-          <Route path="/standard" element={<StandardHome />} />
-          <Route path="/standard/about" element={<StandardAbout />} />
-          <Route path="/standard/academics" element={<StandardAcademics />} />
-          <Route path="/standard/staff" element={<StandardStaff />} />
+          <Route path="/standard" element={<><AnnouncementBanner /><CmsPage slug="standard" fallback={<StandardHome />} /></>} />
+          <Route path="/standard/about" element={<CmsPage slug="standard-about" fallback={<StandardAbout />} />} />
+          <Route path="/standard/academics" element={<CmsPage slug="standard-academics" fallback={<StandardAcademics />} />} />
+          <Route path="/standard/staff" element={<CmsPage slug="standard-staff" fallback={<StandardStaff />} />} />
           <Route path="/standard/news" element={<StandardNews />} />
           <Route path="/standard/events" element={<StandardEvents />} />
-          <Route path="/standard/gallery" element={<StandardGallery />} />
-          <Route path="/standard/downloads" element={<StandardDownloads />} />
-          <Route path="/standard/contact" element={<StandardContact />} />
+          <Route path="/standard/gallery" element={<CmsPage slug="standard-gallery" fallback={<StandardGallery />} />} />
+          <Route path="/standard/downloads" element={<CmsPage slug="standard-downloads" fallback={<StandardDownloads />} />} />
+          <Route path="/standard/contact" element={<CmsPage slug="standard-contact" fallback={<StandardContact />} />} />
 
           {/* Premium package demo site */}
           <Route path="/premium" element={<PremiumHome />} />
