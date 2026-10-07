@@ -1,6 +1,6 @@
 # SchoolWeb
 
-A responsive React and Vite demo for a school website, with Basic, Standard, and Premium page examples.
+A responsive React and Vite demo for a school website, with Basic, Standard, and Premium page examples. Tailwind CSS v4 is integrated through the Vite plugin and used for shared layout components; the page demos retain their existing component styles.
 
 ## Develop
 
