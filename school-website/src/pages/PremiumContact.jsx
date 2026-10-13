@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { buildContactMailto, CONTACT_EMAIL } from '../utils/contact'
+import SocialLinks from '../components/SocialLinks'
 
 function PremiumContact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -69,6 +70,15 @@ function PremiumContact() {
               <p style={styles.infoText}>Monday - Friday: 7:30 AM - 5:00 PM</p>
               <p style={styles.infoText}>Saturday: 9:00 AM - 1:00 PM</p>
               <p style={{ ...styles.infoText, color: '#ef4444' }}>Sunday: Closed</p>
+            </div>
+          </div>
+
+          <div style={styles.infoItem} className="schoolweb-surface">
+            <div style={styles.infoIcon}>🌐</div>
+            <div>
+              <h3 style={styles.infoLabel}>Follow Us</h3>
+              <p style={styles.infoText}>Campus news, events and student life.</p>
+              <SocialLinks variant="light" />
             </div>
           </div>
 

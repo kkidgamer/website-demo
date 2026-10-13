@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { CONTACT_EMAIL } from '../utils/contact'
+import SocialLinks from './SocialLinks'
 
 const linksByPackage = {
   basic: [
@@ -35,6 +36,7 @@ function Footer() {
           <p className="site-footer-text">
             Learning, character, and community for every student — rooted in excellence since 1985.
           </p>
+          <SocialLinks />
         </section>
 
         <nav aria-label="Footer navigation">

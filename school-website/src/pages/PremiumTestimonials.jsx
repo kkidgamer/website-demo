@@ -115,7 +115,7 @@ const styles = {
   statNumber: { fontSize: '1.75rem', fontWeight: 'bold', color: 'var(--accent)' },
   statLabel: { fontSize: '0.85rem', color: 'var(--muted-foreground)', marginTop: '0.25rem' },
   testimonials: { marginBottom: '3rem' },
-  testimonialGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' },
+  testimonialGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.5rem' },
   testimonialCard: { background: '#fff', padding: '2rem', borderRadius: 'var(--radius)', boxShadow: 'var(--shadow-card)', position: 'relative' },
   quoteIcon: { fontSize: '4rem', color: 'color-mix(in oklab, var(--accent) 14%, #fff)', position: 'absolute', top: '0.5rem', left: '1.5rem', lineHeight: 1, fontWeight: 'bold' },
   quote: { fontSize: '0.95rem', color: 'var(--foreground)', lineHeight: 1.7, fontStyle: 'italic', marginBottom: '1rem', marginTop: '1.5rem', position: 'relative' },

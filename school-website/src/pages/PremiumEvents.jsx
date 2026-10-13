@@ -108,7 +108,7 @@ function PremiumEvents() {
         <h2 style={styles.sectionTitle}>More Events</h2>
         <div style={styles.eventList}>
           {more.map(event => (
-            <div key={event.title} style={styles.eventCardLite}>
+            <div key={event.title} style={styles.eventCardLite} className="schoolweb-event-card">
               <div style={styles.eventDate} className="schoolweb-event-date">
                 <div style={styles.eventMonth}>
                   {eventDateParts(event.date).month}
